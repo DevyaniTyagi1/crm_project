@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Programs</h2>
+
+  <!-- Programs Table -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in programs %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.status }}</td>
+        <td>
+          <!-- Delete button -->
+          <form method="POST" action="{{ url_for('delete_program', id=p.id) }}" 
+                style="display:inline;" 
+                onsubmit="return confirm('Are you sure you want to delete this program?');">
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Add Program Form -->
+  <h4>Add Program</h4>
+  <form method="POST" action="{{ url_for('add_program') }}">
+    <div class="row">
+      <div class="col">
+        <input class="form-control" name="name" placeholder="Program Name" required>
+      </div>
+      <div class="col">
+        <select class="form-control" name="status" required>
+          <option value="Pending">Pending</option>
+          <option value="Active">Active</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+      <div class="col">
+        <button class="btn btn-success" type="submit">Add</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

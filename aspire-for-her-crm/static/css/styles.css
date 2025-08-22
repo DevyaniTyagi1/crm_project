@@ -1,0 +1,11 @@
+
+.afh-gradient {
+  background: linear-gradient(90deg, #6f42c1 0%, #20c997 100%);
+}
+.kpi-card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+.kpi-card .kpi-label { color: #6c757d; font-size: 0.95rem; }
+.kpi-card .kpi-value { font-size: 1.8rem; font-weight: 700; }

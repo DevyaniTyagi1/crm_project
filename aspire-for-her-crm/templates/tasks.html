@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Tasks</h2>
+
+  <!-- Task Table -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Assigned To</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in tasks %}
+      <tr>
+        <td>{{ t.title }}</td>
+        <td>{{ t.assigned_to }}</td>
+        <td>{{ t.status }}</td>
+        <td>
+          <!-- Delete button -->
+          <form method="POST" action="{{ url_for('delete_task', id=t.id) }}" 
+                style="display:inline;" 
+                onsubmit="return confirm('Are you sure you want to delete this task?');">
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Add Task Form -->
+  <h4>Add Task</h4>
+  <form method="POST" action="{{ url_for('add_task') }}">
+    <div class="row">
+      <div class="col">
+        <input class="form-control" name="title" placeholder="Task Title" required>
+      </div>
+      <div class="col">
+        <input class="form-control" name="assigned_to" placeholder="Assigned To" required>
+      </div>
+      <div class="col">
+        <select class="form-control" name="status" required>
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+      <div class="col">
+        <button class="btn btn-success" type="submit">Add</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

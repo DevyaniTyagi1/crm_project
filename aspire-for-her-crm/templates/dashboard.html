@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="row">
+  <div class="col-md-3"><div class="card text-white bg-primary mb-3 p-2"><h5>Contacts</h5>{{ total_contacts }}</div></div>
+  <div class="col-md-3"><div class="card text-white bg-success mb-3 p-2"><h5>Programs</h5>{{ total_programs }}</div></div>
+  <div class="col-md-3"><div class="card text-white bg-warning mb-3 p-2"><h5>Tasks</h5>{{ total_tasks }}</div></div>
+  <div class="col-md-3"><div class="card text-white bg-info mb-3 p-2"><h5>Companies</h5>{{ total_companies }}</div></div>
+</div>
+<div class="row mt-4">
+  <div class="col-md-6"><canvas id="programChart"></canvas></div>
+  <div class="col-md-6"><canvas id="taskChart"></canvas></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+var programChart = new Chart(document.getElementById('programChart'), {
+    type: 'pie',
+    data: {
+        labels: {{ program_status.keys()|list|safe }},
+        datasets: [{ label: 'Program Status', data: {{ program_status.values()|list|safe }}, backgroundColor: ['#007bff','#28a745','#ffc107'] }]
+    }
+});
+var taskChart = new Chart(document.getElementById('taskChart'), {
+    type: 'bar',
+    data: {
+        labels: {{ task_status.keys()|list|safe }},
+        datasets: [{ label: 'Tasks', data: {{ task_status.values()|list|safe }}, backgroundColor: ['#007bff','#28a745','#ffc107'] }]
+    },
+    options: { indexAxis: 'y' }
+});
+</script>
+{% endblock %}
